@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>For You ❤️</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Pacifico', cursive;
+      color: white;
+      background: radial-gradient(circle at top, #3a1c71, #000000 70%);
+    }
+
+    .scene {
+      text-align: center;
+      max-width: 90%;
+      animation: fade 1.5s ease-in-out;
+    }
+
+    img {
+      max-width: 85%;
+      border-radius: 15px;
+      margin-top: 20px;
+      box-shadow: 0 0 25px rgba(255,255,255,0.25);
+    }
+
+    @keyframes fade {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .heart {
+      position: absolute;
+      color: #ff3366;
+      font-size: 20px;
+      animation: float 6s linear infinite;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(100vh); opacity: 0; }
+      50% { opacity: 1; }
+      100% { transform: translateY(-10vh); opacity: 0; }
+    }
+
+    .btn {
+      padding: 12px 25px;
+      border: none;
+      background: #ff3366;
+      color: white;
+      font-size: 18px;
+      border-radius: 25px;
+      cursor: pointer;
+      margin: 10px;
+    }
+
+    .musicBtn {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      z-index: 10;
+    }
+
+    iframe {
+      position: absolute;
+      width: 0;
+      height: 0;
+      border: none;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- 🎹 Soft Romantic Piano Music -->
+<iframe
+id="music"
+src="https://www.youtube.com/embed/4Tr0otuiQuU?enablejsapi=1"
+allow="autoplay">
+</iframe>
+
+<button class="btn musicBtn" onclick="playMusic()">🎵 Play Music</button>
+
+<div class="scene" id="scene">
+  <div style="font-size:40px;">Press Start ❤️</div>
+  <button class="btn" onclick="start()">Start</button>
+</div>
+
+<script>
+  const scenes = [
+    { text: "From the moment I saw you...", img: "IMG_3135.jpeg" },
+    { text: "You slowly became my favorite thought ❤️", img: "IMG_3138.jpeg" },
+    { text: "Every moment feels softer with you...", img: "IMG_3137.jpeg" },
+    { text: "I never planned it... but I fell for you", img: "IMG_3124.jpeg" },
+    { text: "And now I just want you to know this...", img: "" },
+    { text: "I love you ❤️", img: "" }
+  ];
+
+  let i = 0;
+  let scene = document.getElementById("scene");
+
+  function start() {
+    showScene();
+    setInterval(showScene, 4000);
+  }
+
+  function showScene() {
+    let data = scenes[i];
+
+    scene.innerHTML = `
+      <div style="font-size:35px; margin-bottom:10px;">${data.text}</div>
+      ${data.img ? `<img src="${data.img}">` : ""}
+    `;
+
+    i = (i + 1) % scenes.length;
+  }
+
+  function playMusic() {
+    let iframe = document.getElementById("music");
+    iframe.src = "https://www.youtube.com/embed/4Tr0otuiQuU?autoplay=1&loop=1&playlist=4Tr0otuiQuU";
+  }
+
+  function createHeart() {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 6000);
+  }
+
+  setInterval(createHeart, 250);
+</script>
+
+</body>
+</html>
